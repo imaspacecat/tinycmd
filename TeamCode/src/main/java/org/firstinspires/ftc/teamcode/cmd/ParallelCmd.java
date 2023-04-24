@@ -2,45 +2,37 @@ package org.firstinspires.ftc.teamcode.cmd;
 
 import org.firstinspires.ftc.teamcode.sys.Sys;
 
+import java.util.Arrays;
+import java.util.List;
 
+// TODO test
 public class ParallelCmd extends Cmd {
-    private final Cmd[] cmds;
+    private final List<Cmd> cmds;
 
     public ParallelCmd(Cmd... cmds) {
         for (Cmd c : cmds) {
             addSys(c.getSystems().toArray(new Sys[0]));
         }
-        this.cmds = cmds;
+        this.cmds = Arrays.asList(cmds);
     }
 
     @Override
     public void init() {
-        for (Cmd cmd : cmds) {
-            cmd.init();
-        }
+        cmds.forEach(Cmd::init);
     }
 
     @Override
     public void loop() {
-        for (Cmd cmd : cmds) {
-            cmd.loop();
-        }
+        cmds.forEach(Cmd::loop);
     }
 
     @Override
     public void lastly() {
-        for (Cmd cmd : cmds) {
-            cmd.lastly();
-        }
+        cmds.forEach(Cmd::lastly);
     }
 
     @Override
     public boolean isDone() {
-        boolean done = true;
-        for (Cmd cmd : cmds) {
-            done = done && cmd.isDone();
-        }
-
-        return done;
+        return cmds.stream().allMatch(Cmd::isDone);
     }
 }

@@ -17,6 +17,8 @@ public abstract class Cmd {
         this.interruptible = interruptible;
     }
 
+    // TODO add method to run on interrupt
+
     public abstract void init();
     public void loop() {}
     public void lastly() {}
