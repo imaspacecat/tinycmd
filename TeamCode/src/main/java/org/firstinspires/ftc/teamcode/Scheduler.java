@@ -5,7 +5,7 @@ import org.firstinspires.ftc.teamcode.cmd.Cmd;
 import java.util.HashSet;
 import java.util.Set;
 
-
+// TODO test onInterrupt
 public final class Scheduler {
     private static final Set<Cmd> cmds = new HashSet<>();
 
@@ -21,6 +21,7 @@ public final class Scheduler {
                     }
                 }
             }
+            toRemove.forEach(Cmd::onInterrupt);
             cmds.removeAll(toRemove);
             cmds.add(cmd);
             cmd.init();

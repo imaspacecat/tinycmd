@@ -10,26 +10,26 @@ public abstract class Cmd {
     private final Set<Sys> systems = new HashSet<>();
     private boolean interruptible = true;
 
-
-    protected Cmd() {}
-
-    protected Cmd(boolean interruptible) {
-        this.interruptible = interruptible;
-    }
-
-    // TODO add method to run on interrupt
-
     public abstract void init();
     public void loop() {}
     public void lastly() {}
+    public void onInterrupt() {}
     public abstract boolean isDone();
 
     protected void addSys(Sys... systems) {
         this.systems.addAll(Arrays.asList(systems));
     }
 
+    protected void addSys(Set<Sys> systems) {
+        this.systems.addAll(systems);
+    }
+
     public Set<Sys> getSystems() {
         return systems;
+    }
+
+    protected void setInterruptible(boolean interruptible) {
+        this.interruptible = interruptible;
     }
 
     public boolean isInterruptible() {
@@ -37,4 +37,5 @@ public abstract class Cmd {
     }
 
     // TODO: make inline utilities such as `indefinite()`, `repeat(int n)`, `with(Command/Runnable)`
+    // TODO create GroupCmd class with
 }

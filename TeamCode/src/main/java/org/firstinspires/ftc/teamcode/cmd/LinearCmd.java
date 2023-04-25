@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.cmd;
 
 import org.firstinspires.ftc.teamcode.sys.Sys;
 
+import java.util.Arrays;
+
 
 public class LinearCmd extends Cmd {
     private final Cmd[] cmds;
@@ -9,7 +11,7 @@ public class LinearCmd extends Cmd {
 
     public LinearCmd(Cmd... cmds) {
         for (Cmd c : cmds) {
-            addSys(c.getSystems().toArray(new Sys[0]));
+            addSys(c.getSystems());
         }
         this.cmds = cmds;
     }
@@ -32,6 +34,11 @@ public class LinearCmd extends Cmd {
     @Override
     public void lastly() {
         cmds[cmds.length - 1].lastly();
+    }
+
+    @Override
+    public void onInterrupt() {
+        Arrays.asList(cmds).forEach(Cmd::onInterrupt);
     }
 
     @Override
