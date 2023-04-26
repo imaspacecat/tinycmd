@@ -1,9 +1,9 @@
-a small command based implementation meant to be simple and easy to understand and use
+a simple and readable command based implementation
+
+- tinycmd scheduler -> **~50** lines
+- ftclib scheduler -> ~300 lines
 
 todo:
-- write annotation processor for hardware devices
-- test parallel command
-- implement more inline commands
-- add method to run on interrupt for cmd
-- write fsm visualizer
-- dsl???
+- do reflection + annotation processor for hardware devices in opmode
+- test everything lol
+- write fsm visualizer with graphviz??
