@@ -1,30 +1,11 @@
 package org.firstinspires.ftc.teamcode.cmd;
 
 
-public class IndefiniteCmd extends Cmd {
-    private final Cmd cmd;
+import org.firstinspires.ftc.teamcode.sys.Sys;
+
+public class IndefiniteCmd extends FullCmd {
     public IndefiniteCmd(Cmd cmd) {
-        this.cmd = cmd;
-        addSys(cmd.getSystems());
-    }
-
-    @Override
-    public void init() {
-        cmd.init();
-    }
-
-    @Override
-    public void loop() {
-        cmd.loop();
-    }
-
-    @Override
-    public void onInterrupt() {
-        cmd.onInterrupt();
-    }
-
-    @Override
-    public boolean isDone() {
-        return false;
+        super(cmd::init, cmd::loop, cmd::lastly, cmd::onInterrupt,
+                () -> false, cmd.getSystems().toArray(new Sys[0]));
     }
 }

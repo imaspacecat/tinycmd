@@ -1,48 +1,41 @@
 package org.firstinspires.ftc.teamcode.cmd;
 
-import org.firstinspires.ftc.teamcode.sys.Sys;
 
-import java.util.Arrays;
-
-
-public class LinearCmd extends Cmd {
-    private final Cmd[] cmds;
+public class LinearCmd extends GroupCmd {
     private int index = 0;
 
     public LinearCmd(Cmd... cmds) {
-        for (Cmd c : cmds) {
-            addSys(c.getSystems());
-        }
-        this.cmds = cmds;
+        super(cmds);
     }
 
     @Override
     public void init() {
-        cmds[0].init();
+        super.init();
+        cmds.get(0).init();
     }
 
     @Override
     public void loop() {
-        if (cmds[index].isDone()) {
-            cmds[index].lastly();
-            cmds[++index].init();
+        if (cmds.get(index).isDone()) {
+            cmds.get(index).lastly();
+            cmds.get(++index).init();
         } else {
-            cmds[index].loop();
+            cmds.get(index).loop();
         }
     }
 
     @Override
     public void lastly() {
-        cmds[cmds.length - 1].lastly();
+        cmds.get(cmds.size() - 1).lastly();
     }
 
     @Override
     public void onInterrupt() {
-        Arrays.asList(cmds).forEach(Cmd::onInterrupt);
+        cmds.forEach(Cmd::onInterrupt);
     }
 
     @Override
     public boolean isDone() {
-        return cmds[cmds.length - 1].isDone() && index == cmds.length - 1;
+        return cmds.get(cmds.size() - 1).isDone() && index == cmds.size() - 1;
     }
 }

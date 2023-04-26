@@ -5,6 +5,8 @@ import org.firstinspires.ftc.teamcode.sys.Sys;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.BooleanSupplier;
 
 public abstract class Cmd {
     private final Set<Sys> systems = new HashSet<>();
@@ -36,6 +38,31 @@ public abstract class Cmd {
         return interruptible;
     }
 
-    // TODO: make inline utilities such as `indefinite()`, `repeat(int n)`, `with(Command/Runnable)`
-    // TODO create GroupCmd class with
+    public Cmd with(Cmd... cmds) {
+        ParallelCmd parallelCmd = new ParallelCmd(this);
+        parallelCmd.add(cmds);
+        return parallelCmd;
+    }
+
+    public Cmd then(Cmd... cmds) {
+        LinearCmd linearCmd = new LinearCmd(this);
+        linearCmd.add(cmds);
+        return linearCmd;
+    }
+
+    public Cmd indefinitely() {
+        return new IndefiniteCmd(this);
+    }
+
+    public Cmd until(BooleanSupplier condition) {
+        return new DefiniteCmd(this, condition);
+    }
+
+    public Cmd repeat(int n) {
+        LinearCmd linearCmd = new LinearCmd(this);
+        for (int i = 0; i < n-1; i++) {
+            linearCmd.add(this);
+        }
+        return linearCmd;
+    }
 }
