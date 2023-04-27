@@ -26,11 +26,12 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-//    publishing {
-//        singleVariant('release') {
-//            withSourcesJar()
-//        }
-//    }
+    publishing {
+        singleVariant('release') {
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
 
 }
 
@@ -51,7 +52,7 @@ dependencies {
 publishing {
     publications {
         release(MavenPublication) {
-            groupId = 'org.dubiner'
+            groupId = 'com.github.imaspacecat'
             artifactId = 'tinycmd'
             version = '1.0'
 
