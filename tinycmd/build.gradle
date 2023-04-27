@@ -26,12 +26,12 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    publishing {
-        singleVariant('release') {
-            withSourcesJar()
-            withJavadocJar()
-        }
-    }
+//    publishing {
+//        singleVariant('release') {
+//            withSourcesJar()
+//            withJavadocJar()
+//        }
+//    }
 
 }
 
@@ -54,7 +54,7 @@ publishing {
         release(MavenPublication) {
             groupId = 'com.github.imaspacecat'
             artifactId = 'tinycmd'
-            version = '1.1.1'
+            version = '1.1.2'
 
             afterEvaluate {
                 from components.release
