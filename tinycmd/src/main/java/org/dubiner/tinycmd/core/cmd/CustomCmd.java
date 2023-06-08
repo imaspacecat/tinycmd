@@ -1,16 +1,15 @@
 package org.dubiner.tinycmd.core.cmd;
 
-
 import org.dubiner.tinycmd.core.sys.Sys;
 
 import java.util.function.BooleanSupplier;
 
-public class FullCmd extends Cmd {
+public class CustomCmd extends Cmd {
     private final Runnable init, loop, lastly, onInterrupt;
     private final BooleanSupplier done;
 
-    public FullCmd(Runnable init, Runnable loop, Runnable lastly, Runnable onInterrupt, BooleanSupplier done,
-                   Sys... systems) {
+    public CustomCmd(Runnable init, Runnable loop, Runnable lastly, Runnable onInterrupt, BooleanSupplier done,
+                     Sys... systems) {
         this.init = init;
         this.loop = loop;
         this.lastly = lastly;

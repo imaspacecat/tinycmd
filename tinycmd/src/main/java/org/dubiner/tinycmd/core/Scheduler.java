@@ -29,7 +29,7 @@ public final class Scheduler {
         }
     }
 
-    public static void iter() {
+    public static void tick() {
         cmds.stream().filter(Cmd::isDone).forEach(Cmd::lastly);
         cmds.removeIf(Cmd::isDone);
         cmds.forEach(Cmd::loop);

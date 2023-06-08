@@ -12,10 +12,14 @@ public abstract class Cmd {
     private final Set<Sys> systems = new HashSet<>();
     private boolean interruptible = true;
 
-    public abstract void init();
+    public void init() {}
+
     public void loop() {}
+
     public void lastly() {}
+
     public void onInterrupt() {}
+
     public abstract boolean isDone();
 
     protected void addSys(Sys... systems) {
@@ -55,7 +59,7 @@ public abstract class Cmd {
     }
 
     public Cmd until(BooleanSupplier condition) {
-        return new DefiniteCmd(this, condition);
+        return new UntilCmd(this, condition);
     }
 
     public Cmd repeat(int n) {
@@ -64,5 +68,13 @@ public abstract class Cmd {
             linearCmd.add(this);
         }
         return linearCmd;
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + " {" +
+                "systems=" + systems +
+                ", interruptible=" + interruptible +
+                '}';
     }
 }
